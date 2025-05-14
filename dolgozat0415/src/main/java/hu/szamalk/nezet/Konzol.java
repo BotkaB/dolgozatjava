@@ -1,14 +1,9 @@
 package hu.szamalk.nezet;
 
-import hu.szamalk.modell.Festmeny;
 import hu.szamalk.modell.Gyujtemeny;
 import hu.szamalk.modell.Mutargy;
-import hu.szamalk.modell.Szobor;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+import java.io.*;
 import java.util.List;
 
 public class Konzol {
@@ -18,37 +13,47 @@ public class Konzol {
         new Konzol();
     }
 
+    Gyujtemeny gy;
 
     public Konzol() {
+    gy= new Gyujtemeny();
+        konzolraIr();
+        filebaIr();
+        List<Mutargy> beolvasottMutargyak = beolvasMutargyak();
+        System.out.println(beolvasottMutargyak.get(0));
 
-     Gyujtemeny gy=new Gyujtemeny();
 
+    }
 
-
-       }
-
-    public static void konzolraIr( List<Mutargy> mutargyak){
+    public  void konzolraIr() {
 
 
         // mutargyak.forEach(System.out::println);
 
-        for(Mutargy mutargy:mutargyak){
-            System.out.println(mutargy);}
+        for (Object mutargy : gy.getMutargyak()) {
+            System.out.println(mutargy);
+        }
 
     }
 
-    public void filebaIr() throws IOException {
-
-        ObjectOutputStream oos= new ObjectOutputStream(new FileOutputStream("kiir.dat"));
+    public void filebaIr()  {
         try {
-            oos.writeObject(this);
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("kiir.dat"));
+
+            oos.writeObject(gy.getMutargyak());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    public  List<Mutargy> beolvasMutargyak() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("kiir.dat"))) {
+            return (List<Mutargy>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException("Hiba történt a fájl beolvasása közben", e);
+        }
+    }
 
 
-
-  }
+}
 

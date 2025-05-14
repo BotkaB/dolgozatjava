@@ -20,10 +20,9 @@ public class Festmeny extends Mutargy {
     }
 
 
-
     @Override
     public String toString() {
-        return super.toString()+"Festmeny{" +
+        return super.toString() + "Festmeny{" +
                 "stilus='" + stilus + '\'' +
                 ", technika='" + technika + '\'' +
                 '}';

@@ -1,20 +1,18 @@
 package hu.szamalk.modell;
 
-import java.text.Collator;
 import java.util.Comparator;
 
-public class Szobor extends Mutargy implements Comparable<Szobor>{
+public class Szobor extends Mutargy implements Comparable<Szobor> {
 
     private final String anyag;
     private final int szazad;
 
 
-
-    public Szobor(String alkoto, String cim, Kategoriak kategoria, String anyag, int szazad)  throws SzazadNagyobbMint21 {
+    public Szobor(String alkoto, String cim, Kategoriak kategoria, String anyag, int szazad) throws SzazadNagyobbMint21 {
         super(alkoto, cim, kategoria);
-        this.anyag=anyag;
+        this.anyag = anyag;
         szazadNagyobbMint21(szazad);
-        this.szazad=szazad;
+        this.szazad = szazad;
 
 
     }
@@ -23,9 +21,9 @@ public class Szobor extends Mutargy implements Comparable<Szobor>{
         this(alkoto, cim, kategoria, anyag, 20);
     }
 
-    private void szazadNagyobbMint21(int szazad)  throws SzazadNagyobbMint21{
-        if(szazad>21){
-            throw new SzazadNagyobbMint21("Század nagyobb, mint 21."+szazad);
+    private void szazadNagyobbMint21(int szazad) throws SzazadNagyobbMint21 {
+        if (szazad > 21) {
+            throw new SzazadNagyobbMint21("Század nagyobb, mint 21." + szazad);
         }
     }
 
@@ -39,17 +37,17 @@ public class Szobor extends Mutargy implements Comparable<Szobor>{
 
     @Override
     public int compareTo(Szobor masik) {
-     return this.getAlkoto().compareTo(masik.getAlkoto());
+        return this.getAlkoto().compareTo(masik.getAlkoto());
     }
 
-    public class SzazadComparator implements Comparator<Szobor>{
+    public class SzazadComparator implements Comparator<Szobor> {
         @Override
         public int compare(Szobor egyik, Szobor masik) {
-           return egyik.getSzazad()-masik.getSzazad();
+            return egyik.getSzazad() - masik.getSzazad();
         }
     }
 
-    public class AnyagComparator implements Comparator<Szobor>{
+    public class AnyagComparator implements Comparator<Szobor> {
         @Override
         public int compare(Szobor egyik, Szobor masik) {
             return egyik.getAnyag().compareTo(masik.getAnyag());
@@ -58,7 +56,7 @@ public class Szobor extends Mutargy implements Comparable<Szobor>{
 
     @Override
     public String toString() {
-        return super.toString()+"Szobor{" +
+        return super.toString() + "Szobor{" +
                 "anyag='" + anyag + '\'' +
                 ", szazad=" + szazad +
                 '}';
